@@ -1,0 +1,51 @@
+[
+	{
+		"name": "registerNode",
+		"params": {
+			"nodeUrl": "string"
+		},
+		"returns":{
+			"test": "string"
+		}	
+	},
+
+	{
+		"name": "checkConnection",
+		"params": {
+			"test": "test"
+		},
+		"returns":{
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "uploadFile",
+		"params": {
+			"nodeUrl": "string"
+		},
+		"returns":{
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "downloadFile",
+		"params": {
+			"nodeUrl": "string"
+		},
+		"returns": {
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "confirmUploading",
+		"params": {
+			"test": "string"
+		},
+		"returns": {
+			"test": "string"
+		}
+	}
+]

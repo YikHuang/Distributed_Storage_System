@@ -1,0 +1,41 @@
+[
+	{
+		"name": "checkConnection",
+		"params": {
+			"test": "string"
+		},
+		"returns":{
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "checkStorage",
+		"params": {
+			"test": "string"
+		},
+		"returns": {
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "uploadPartOfFile",
+		"params": {
+			"test": "string"
+		},
+		"returns": {
+			"test": "string"
+		}
+	},
+	
+	{
+		"name": "downloadFile",
+		"params": {
+			"test": "string"
+		},
+		"returns": {
+			"test": "string"
+		}
+	}
+]
