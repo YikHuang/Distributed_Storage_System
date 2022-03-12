@@ -7,6 +7,11 @@
 #include <jsonrpccpp/client/connectors/httpclient.h>
 #include <json/value.h>
 
+#include <string> 
+#include <algorithm> 
+#include <iostream> 
+#include <iterator>
+
 using namespace jsonrpc;
 using namespace std;
 
@@ -143,8 +148,4 @@ vector<string> EdgeCaller::getUrls(string callingNode) {
 
 	return urls;
 }
-
-
-
-
 

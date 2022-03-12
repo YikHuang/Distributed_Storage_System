@@ -42,3 +42,9 @@ https://github.com/YikHuang/Distributed_Storage_System
   + (d) Passing or storing part(s) of file
   + (e) Incorrect call of downloading file
     
+=====
+
++ Milestone (3) Updated the followings:
+  + (a) Added packages in edgeCaller.cpp for using std::remove in Linux systems
+  + (b) Clean the code for uploading to be "for" loop
+  + (c) Clean the code for downloading to be "for" loop

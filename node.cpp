@@ -220,15 +220,13 @@ int main(){
       cout << "----------Step 5: Upload part(s) of file to all other nodes----------" << endl;
       cout << "call uploadPartOfFile" << endl;
 
-      NodeCaller nodeCaller1{"http://127.0.0.1:" + to_string(port)};
-      NodeCaller nodeCaller2{urls[0]};
-      NodeCaller nodeCaller3{urls[1]};
-      NodeCaller nodeCaller4{urls[2]};
+      NodeCaller nodeCallerLocal{"http://127.0.0.1:" + to_string(port)};
+      nodeCallerLocal.uploadPartOfFile("{part1 of file}");
 
-      nodeCaller1.uploadPartOfFile("{upload part1 of file}");
-			nodeCaller2.uploadPartOfFile("{upload part2 of file}");
-			nodeCaller3.uploadPartOfFile("{upload part3 of file}");
-      nodeCaller4.uploadPartOfFile("{upload part4 of file}");
+      for(int i = 0; i < urls.size(); i++){
+        NodeCaller nodeCaller{urls[i]};
+        nodeCaller.uploadPartOfFile("{part" + to_string(i+2) + " of file}");
+      }
 		}
 		else if(operation == 2){
       cout << "----------Step 2: Check the edge server connection----------" << endl;
@@ -250,13 +248,10 @@ int main(){
       cout << "----------Step 5: Download other parts of file from all other nodes----------" << endl;
       cout << "call downloadFile" << endl;
 
-      NodeCaller nodeCaller2{urls[0]};
-      NodeCaller nodeCaller3{urls[1]};
-      NodeCaller nodeCaller4{urls[2]};
-
-			nodeCaller2.downloadFile("download file");
-      nodeCaller3.downloadFile("download file");
-      nodeCaller4.downloadFile("download file");
+      for(int i = 0; i < urls.size(); i++){
+        NodeCaller nodeCaller{urls[i]};
+        nodeCaller.downloadFile("download file");
+      }
 		}
 		else if(operation == 3){
 			break;
