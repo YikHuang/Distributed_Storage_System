@@ -10,7 +10,7 @@ https://github.com/YikHuang/Distributed_Storage_System
 
 =====
 
-- Milestone (2) complete the functions
++ Milestone (2) complete the functions
   // Assume the edge server is up and all nodes are ready to connect to the server
   // edge server: http://127.0.0.1:8080/
   // node1: http://127.0.0.1:9001/
@@ -34,3 +34,11 @@ https://github.com/YikHuang/Distributed_Storage_System
 	Step 4: Check nodes connection and storage by edge server
 	Step 5: Download other parts of file from all other nodes
 =====
+
++ Milestone (3) Fixed the issues of the followings:
+  + (a) Retrieving the URLs of nodes from the edge server
+  + (b) Passing or storing the metadata
+  + (c) Returning metadata
+  + (d) Passing or storing part(s) of file
+  + (e) Incorrect call of downloading file
+    

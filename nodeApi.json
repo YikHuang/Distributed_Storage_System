@@ -22,7 +22,7 @@
 	{
 		"name": "uploadPartOfFile",
 		"params": {
-			"upload_message": "string"
+			"part_of_file": "string"
 		},
 		"returns": {
 			"status_upload": "string"

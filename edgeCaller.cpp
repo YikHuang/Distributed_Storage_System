@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "edgeapiclient.h"
 #include <jsonrpccpp/client/connectors/httpclient.h>
-
+#include <json/value.h>
 
 using namespace jsonrpc;
 using namespace std;
@@ -56,7 +56,7 @@ string EdgeCaller::checkConnection(string check_messsage){
 }
 
 
-string EdgeCaller::uploadFile(string nodeUrl){
+string EdgeCaller::uploadFileMetadata(string nodeUrl, string metadata){
 	
 	HttpClient httpclient((this->targetUrl).c_str());
 	edgeApiClient edgeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -64,8 +64,8 @@ string EdgeCaller::uploadFile(string nodeUrl){
 	Json::Value jsonValue;
 	
 	try{
-		cout << "Call uploadFile (" << this->targetUrl << ")" << endl;
-		jsonValue = edgeApi.uploadFile(nodeUrl);
+		cout << "Call uploadFileMetadata (" << this->targetUrl << ")" << endl;
+		jsonValue = edgeApi.uploadFileMetadata(nodeUrl, metadata);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	} catch (JsonRpcException &e) {
@@ -76,7 +76,7 @@ string EdgeCaller::uploadFile(string nodeUrl){
 }
 
 
-string EdgeCaller::downloadFile(string nodeUrl){
+string EdgeCaller::downloadFileMetadata(string nodeUrl){
 	
 	HttpClient httpclient((this->targetUrl).c_str());
 	edgeApiClient edgeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -84,15 +84,15 @@ string EdgeCaller::downloadFile(string nodeUrl){
 	Json::Value jsonValue;
 	
 	try{
-		cout << "Call downloadFile (" << this->targetUrl << ")" << endl;
-		jsonValue = edgeApi.downloadFile(nodeUrl);
+		cout << "Call downloadFileMetadata (" << this->targetUrl << ")" << endl;
+		jsonValue = edgeApi.downloadFileMetadata(nodeUrl);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	} catch (JsonRpcException &e) {
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["status_download"].asString();
+	return jsonValue["fileMetadata"].asString();
 }
 
 
@@ -113,6 +113,35 @@ string EdgeCaller::confirmUploading(string confirm_message){
 	}
 	
 	return jsonValue["status_confirm"].asString();
+}
+
+vector<string> EdgeCaller::getUrls(string callingNode) {
+  vector<string> urls;
+
+  HttpClient httpclient((this->targetUrl).c_str());
+	edgeApiClient edgeApi(httpclient, JSONRPC_CLIENT_V2);
+	
+  Json::Value jsonValue;
+	
+	try{
+		cout << "Call getUrls (" << this->targetUrl << ")" << endl;
+		jsonValue = edgeApi.getUrls(callingNode);
+		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
+	} catch (JsonRpcException &e) {
+		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
+	}
+
+  
+  for (int i = 0; i < 4; i++) {
+    string url = jsonValue["node" + to_string(i+1)].toStyledString();
+    url.erase(std::remove(url.begin(), url.end(), '"'), url.end());
+    url.erase(std::remove(url.begin(), url.end(), '\n'), url.end());
+    urls.push_back(url);
+  }
+
+  urls.erase(std::remove(urls.begin(), urls.end(), callingNode), urls.end());
+
+	return urls;
 }
 
 

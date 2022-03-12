@@ -20,9 +20,10 @@
 	},
 	
 	{
-		"name": "uploadFile",
+		"name": "uploadFileMetadata",
 		"params": {
-			"nodeUrl": "string"
+			"nodeUrl": "string",
+      "fileMetada": "string"
 		},
 		"returns":{
 			"status_upload": "string"
@@ -30,12 +31,12 @@
 	},
 	
 	{
-		"name": "downloadFile",
+		"name": "downloadFileMetadata",
 		"params": {
 			"nodeUrl": "string"
 		},
 		"returns": {
-			"status_download": "string"
+			"fileMetadata": "string"
 		}
 	},
 	
@@ -46,6 +47,19 @@
 		},
 		"returns": {
 			"status_confirm": "string"
+		}
+	},
+
+  {
+		"name": "getUrls",
+		"params": {
+			"callingNode": "string"
+		},
+		"returns": {
+			"url1": "string",
+      "url2": "string",
+      "url3": "string",
+      "url4": "string"
 		}
 	}
 ]

@@ -15,11 +15,10 @@ class NodeCaller{
 	
 	public:
 		NodeCaller(string url);
-		virtual string checkConnection(string temp);
-		virtual string checkStorage(string temp);
-		virtual string uploadPartOfFile(string temp);
-		virtual string downloadFile(string temp);
-
+		virtual string checkConnection(string check_messsage);
+		virtual string checkStorage(string check_messsage);
+		virtual string uploadPartOfFile(string part_of_file);
+		virtual string downloadFile(string upload_message);
 };
 
 

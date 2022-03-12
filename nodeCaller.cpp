@@ -62,7 +62,7 @@ string NodeCaller::checkStorage(string check_messsage){
 }
 
 
-string NodeCaller::uploadPartOfFile(string upload_message){
+string NodeCaller::uploadPartOfFile(string part_of_file){
 	HttpClient httpclient((this->targetUrl).c_str());
 	nodeApiClient nodeApi(httpclient, JSONRPC_CLIENT_V2);
 	
@@ -70,10 +70,8 @@ string NodeCaller::uploadPartOfFile(string upload_message){
 	
 	try{
 		cout << "Call uploadPartOfFile (" << this->targetUrl << ")" << endl;
-		jsonValue = nodeApi.uploadPartOfFile(upload_message);
+		jsonValue = nodeApi.uploadPartOfFile(part_of_file);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
-		
-	
 	} catch (JsonRpcException &e) {
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
