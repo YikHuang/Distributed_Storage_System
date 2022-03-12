@@ -5,17 +5,17 @@
 			"nodeUrl": "string"
 		},
 		"returns":{
-			"test": "string"
+			"status_register": "string"
 		}	
 	},
 
 	{
 		"name": "checkConnection",
 		"params": {
-			"test": "test"
+			"check_messsage": "test"
 		},
 		"returns":{
-			"test": "string"
+			"status_connection": "string"
 		}
 	},
 	
@@ -25,7 +25,7 @@
 			"nodeUrl": "string"
 		},
 		"returns":{
-			"test": "string"
+			"status_upload": "string"
 		}
 	},
 	
@@ -35,17 +35,17 @@
 			"nodeUrl": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_download": "string"
 		}
 	},
 	
 	{
 		"name": "confirmUploading",
 		"params": {
-			"test": "string"
+			"confirm_message": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_confirm": "string"
 		}
 	}
 ]

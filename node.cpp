@@ -50,12 +50,12 @@ NodeApiServer::NodeApiServer(AbstractServerConnector &connector, serverVersion_t
 }
 
 
-Json::Value NodeApiServer::checkConnection(const std::string& test){
+Json::Value NodeApiServer::checkConnection(const std::string& check_messsage){
 	cout << "--------------------------------------------------------------------------------" << endl;
-	cout << "checkConnection called : " << test << endl;
+	cout << "checkConnection called : " << check_messsage << endl;
 
 	// Return json
-	string jsonStr = "{\"test\": \"check successful\"}";
+	string jsonStr = "{\"status_connection\": \"check successful\"}";
 	
 	Json::Value result;
 	Json::CharReaderBuilder builder;
@@ -76,13 +76,12 @@ Json::Value NodeApiServer::checkConnection(const std::string& test){
 }
 
 
-Json::Value NodeApiServer::checkStorage(const std::string& test){
+Json::Value NodeApiServer::checkStorage(const std::string& check_messsage){
 	cout << "--------------------------------------------------------------------------------" << endl;
-	cout << "checkStorage called : " << test << endl;
-
+	cout << "checkStorage called : " << check_messsage << endl;
 
 	// Return json
-	string jsonStr = "{\"test\": \"checkStorage successful\"}";
+	string jsonStr = "{\"storage_status\": \"checkStorage successful\"}";
 	
 	Json::Value result;
 	Json::CharReaderBuilder builder;
@@ -102,9 +101,9 @@ Json::Value NodeApiServer::checkStorage(const std::string& test){
 }
 
 
-Json::Value NodeApiServer::uploadPartOfFile(const std::string& test){
+Json::Value NodeApiServer::uploadPartOfFile(const std::string& upload_message){
 	cout << "--------------------------------------------------------------------------------" << endl;
-	cout << "uploadPartOfFile called : " << test << endl;
+	cout << "uploadPartOfFile called : " << upload_message << endl;
 	
 	
 	// Confirm Uploading
@@ -114,7 +113,7 @@ Json::Value NodeApiServer::uploadPartOfFile(const std::string& test){
 	
 
 	// Return json
-	string jsonStr = "{\"test\": \"uploadPartOfFile successful\"}";
+	string jsonStr = "{\"status_upload\": \"uploadPartOfFile successful\"}";
 	
 	Json::Value result;
 	Json::CharReaderBuilder builder;
@@ -135,13 +134,13 @@ Json::Value NodeApiServer::uploadPartOfFile(const std::string& test){
 
 
 
-Json::Value NodeApiServer::downloadFile(const std::string& test){
+Json::Value NodeApiServer::downloadFile(const std::string& download_message){
 	cout << "--------------------------------------------------------------------------------" << endl;
-	cout << "downloadFile called : " << test << endl;
+	cout << "downloadFile called : " << download_message << endl;
 
 
 	// Return json
-	string jsonStr = "{\"test\": \"downloadFile successful\"}";
+	string jsonStr = "{\"status_download\": \"downloadFile successful\"}";
 	
 	Json::Value result;
 	Json::CharReaderBuilder builder;
@@ -165,45 +164,70 @@ int main(){
 	
 	EdgeCaller edgeCaller{edgeServerUrl};
 	
-	
-	// Start the server
+	// Start the client
 	cout << "Please input the port where you'd like to start your node server: " << endl;
-	int port;
-	cin >> port;
-	getchar();
-	
-	HttpServer httpserver(port);
-	NodeApiServer nodeServer(httpserver, JSONRPC_SERVER_V1V2);
+  Json::Value result;
+  int port;
 
-	nodeServer.StartListening();
-	edgeCaller.registerNode("http://127.0.0.1:" + to_string(port));
-	
+  cout << "----------Step 1: Register the node----------" << endl;
+	while (true) {
+    cin >> port;
+    getchar();
+    result = edgeCaller.registerNode("http://127.0.0.1:" + to_string(port));
+    if (result == "registerNode successful") {  
+      break;
+    }
+  }
+  HttpServer httpserver(port);
+  NodeApiServer nodeServer(httpserver, JSONRPC_SERVER_V1V2);
+  nodeServer.StartListening();
+
 	while(true){
 		cout << "-----------------------------------------------------------------" << endl;
-		cout << "Please choose operation (1. upload, 2.download, 3. stop server): " << endl;
+		cout << "Please choose operation (1. upload, 2.download, 3. exit): " << endl;
 		int operation;
 		cin >> operation;
 		getchar();
 
 		if(operation == 1){
-		 	// The url I pass in is this node's url for edge server to skip the storage-checking of process-triggering node.
+      cout << "----------Step 2: Check the edge server connection----------" << endl;
 			edgeCaller.checkConnection("connection check test");
+
+      cout << "----------Step 3: Upload the file metadata to edge server----------" << endl;
 			edgeCaller.uploadFile("http://127.0.0.1:" + to_string(port));
-			
-			// If successful, we'll get the other node urls from edge server's returning
-			// Here I temporarily assume it's 8082
-			cout << "call uploadPartOfFile" << endl;
-			NodeCaller nodeCaller{"http://127.0.0.1:8082"};
-			nodeCaller.uploadPartOfFile("upload file");
-			
-			
+
+      // Let's assume we have nodes with the port 9001, 9002, 9003, 9004
+
+      cout << "----------Step 4 happens in edge server----------" << endl;
+      // Checking the connection and storage of all other nodes by edge server
+      // If successful, we'll get the other node urls from edge server's returnings
+
+      cout << "----------Step 5: Upload part(s) of file to all other nodes----------" << endl;
+      cout << "call uploadPartOfFile" << endl;
+      NodeCaller nodeCaller2{"http://127.0.0.1:9002"};
+      NodeCaller nodeCaller3{"http://127.0.0.1:9003"};
+      NodeCaller nodeCaller4{"http://127.0.0.1:9004"};
+
+			nodeCaller2.uploadPartOfFile("upload part of file");
+			nodeCaller3.uploadPartOfFile("upload part of file");
+      nodeCaller4.uploadPartOfFile("upload part of file");
 		}
 		else if(operation == 2){
+      cout << "----------Step 2: Check the edge server connection----------" << endl;
 			edgeCaller.checkConnection("connection check test");
+
+      cout << "----------Step 3: Download the file metadata to the current node----------" << endl;
 			edgeCaller.downloadFile("http://127.0.0.1:" + to_string(port));
 			
+      // Let's assume we have nodes with the port 9001, 9002, 9003, 9004
+
+      cout << "----------Step 4 happens in edge server----------" << endl;
+      // Checking the connection and storage of all other nodes by edge server
 			// If successful, we'll get the other node urls, hash value of file, sequence of parts and etc from edge server's returning
-			NodeCaller nodeCaller{"http://127.0.0.1:8082"};
+
+      cout << "----------Step 5: Download other parts of file from all other nodes----------" << endl;
+      cout << "call downloadFile" << endl;
+			NodeCaller nodeCaller{"http://127.0.0.1:" + to_string(port)};
 			nodeCaller.downloadFile("download file");			
 		}
 		else if(operation == 3){

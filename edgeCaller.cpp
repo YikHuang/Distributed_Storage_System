@@ -33,10 +33,10 @@ string EdgeCaller::registerNode(string nodeUrl){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_register"].asString();
 }
 
-string EdgeCaller::checkConnection(string temp){
+string EdgeCaller::checkConnection(string check_messsage){
 	
 	HttpClient httpclient((this->targetUrl).c_str());
 	edgeApiClient edgeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -45,14 +45,14 @@ string EdgeCaller::checkConnection(string temp){
 	
 	try{
 		cout << "Call checkConnection (" << this->targetUrl << ")" << endl;
-		jsonValue = edgeApi.checkConnection(temp);
+		jsonValue = edgeApi.checkConnection(check_messsage);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	} catch (JsonRpcException &e) {
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_connection"].asString();
 }
 
 
@@ -72,7 +72,7 @@ string EdgeCaller::uploadFile(string nodeUrl){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_upload"].asString();
 }
 
 
@@ -92,11 +92,11 @@ string EdgeCaller::downloadFile(string nodeUrl){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_download"].asString();
 }
 
 
-string EdgeCaller::confirmUploading(string temp){
+string EdgeCaller::confirmUploading(string confirm_message){
 	
 	HttpClient httpclient((this->targetUrl).c_str());
 	edgeApiClient edgeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -105,14 +105,14 @@ string EdgeCaller::confirmUploading(string temp){
 	
 	try{
 		cout << "Call confirmUploading (" << this->targetUrl << ")" << endl;
-		jsonValue = edgeApi.confirmUploading(temp);
+		jsonValue = edgeApi.confirmUploading(confirm_message);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	} catch (JsonRpcException &e) {
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_confirm"].asString();
 }
 
 

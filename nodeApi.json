@@ -2,40 +2,40 @@
 	{
 		"name": "checkConnection",
 		"params": {
-			"test": "string"
+			"check_messsage": "string"
 		},
 		"returns":{
-			"test": "string"
+			"status_connection": "string"
 		}
 	},
 	
 	{
 		"name": "checkStorage",
 		"params": {
-			"test": "string"
+			"check_messsage": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_storage": "string"
 		}
 	},
 	
 	{
 		"name": "uploadPartOfFile",
 		"params": {
-			"test": "string"
+			"upload_message": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_upload": "string"
 		}
 	},
 	
 	{
 		"name": "downloadFile",
 		"params": {
-			"test": "string"
+			"download_message": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_download": "string"
 		}
 	}
 ]

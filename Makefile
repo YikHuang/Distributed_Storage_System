@@ -1,4 +1,5 @@
-CC = g++
+CC = g++ -std=c++17
+# CC = g++ 
 
 CFLAGS = -g -I/usr/include/jsoncpp
 LDFLAGS_SV = -ljsoncpp -lmicrohttpd -ljsonrpccpp-common -ljsonrpccpp-server
