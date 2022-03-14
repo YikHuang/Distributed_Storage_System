@@ -16,9 +16,10 @@ class EdgeCaller{
 		EdgeCaller(string url);
 		virtual string registerNode(string nodeUrl);
 		virtual string checkConnection(string temp);
-		virtual string uploadFile(string nodeUrl);
-		virtual string downloadFile(string nodeUrl);
+		virtual string uploadFileMetadata(string nodeUrl, string metadata);
+		virtual string downloadFileMetadata(string nodeUrl);
 		virtual string confirmUploading(string temp);
+    virtual vector<string> getUrls(string callingNode);
 
 };
 

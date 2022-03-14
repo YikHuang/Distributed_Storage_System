@@ -20,7 +20,7 @@ NodeCaller::NodeCaller(string url){
 }
 
 
-string NodeCaller::checkConnection(string temp){
+string NodeCaller::checkConnection(string check_messsage){
 	
 	HttpClient httpclient((this->targetUrl).c_str());
 	nodeApiClient nodeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -29,7 +29,7 @@ string NodeCaller::checkConnection(string temp){
 	
 	try{
 		cout << "Call checkConnection (" << this->targetUrl << ")" << endl;
-		jsonValue = nodeApi.checkConnection(temp);
+		jsonValue = nodeApi.checkConnection(check_messsage);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	
@@ -37,11 +37,11 @@ string NodeCaller::checkConnection(string temp){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_connection"].asString();
 }
 
 
-string NodeCaller::checkStorage(string temp){
+string NodeCaller::checkStorage(string check_messsage){
 
 	HttpClient httpclient((this->targetUrl).c_str());
 	nodeApiClient nodeApi(httpclient, JSONRPC_CLIENT_V2);
@@ -50,7 +50,7 @@ string NodeCaller::checkStorage(string temp){
 	
 	try{
 		cout << "Call checkStorage (" << this->targetUrl << ")" << endl;
-		jsonValue = nodeApi.checkStorage(temp);
+		jsonValue = nodeApi.checkStorage(check_messsage);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	
@@ -58,11 +58,11 @@ string NodeCaller::checkStorage(string temp){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_storage"].asString();
 }
 
 
-string NodeCaller::uploadPartOfFile(string temp){
+string NodeCaller::uploadPartOfFile(string part_of_file){
 	HttpClient httpclient((this->targetUrl).c_str());
 	nodeApiClient nodeApi(httpclient, JSONRPC_CLIENT_V2);
 	
@@ -70,19 +70,17 @@ string NodeCaller::uploadPartOfFile(string temp){
 	
 	try{
 		cout << "Call uploadPartOfFile (" << this->targetUrl << ")" << endl;
-		jsonValue = nodeApi.uploadPartOfFile(temp);
+		jsonValue = nodeApi.uploadPartOfFile(part_of_file);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
-		
-	
 	} catch (JsonRpcException &e) {
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_upload"].asString();
 }
 
 
-string NodeCaller::downloadFile(string temp){
+string NodeCaller::downloadFile(string download_message){
 	HttpClient httpclient((this->targetUrl).c_str());
 	nodeApiClient nodeApi(httpclient, JSONRPC_CLIENT_V2);
 	
@@ -90,7 +88,7 @@ string NodeCaller::downloadFile(string temp){
 	
 	try{
 		cout << "Call downloadFile (" << this->targetUrl << ")" << endl;
-		jsonValue = nodeApi.downloadFile(temp);
+		jsonValue = nodeApi.downloadFile(download_message);
 		cout << "return from (" << this->targetUrl << ") : \n" << jsonValue.toStyledString() << endl;
 		
 	
@@ -98,7 +96,7 @@ string NodeCaller::downloadFile(string temp){
 		cerr << "return from (" << this->targetUrl << ") : \n" << e.what() << endl;
 	}
 	
-	return jsonValue["test"].asString();
+	return jsonValue["status_download"].asString();
 }
 
 

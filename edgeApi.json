@@ -5,47 +5,61 @@
 			"nodeUrl": "string"
 		},
 		"returns":{
-			"test": "string"
+			"status_register": "string"
 		}	
 	},
 
 	{
 		"name": "checkConnection",
 		"params": {
-			"test": "test"
+			"check_messsage": "test"
 		},
 		"returns":{
-			"test": "string"
+			"status_connection": "string"
 		}
 	},
 	
 	{
-		"name": "uploadFile",
+		"name": "uploadFileMetadata",
 		"params": {
-			"nodeUrl": "string"
+			"nodeUrl": "string",
+      "fileMetada": "string"
 		},
 		"returns":{
-			"test": "string"
+			"status_upload": "string"
 		}
 	},
 	
 	{
-		"name": "downloadFile",
+		"name": "downloadFileMetadata",
 		"params": {
 			"nodeUrl": "string"
 		},
 		"returns": {
-			"test": "string"
+			"fileMetadata": "string"
 		}
 	},
 	
 	{
 		"name": "confirmUploading",
 		"params": {
-			"test": "string"
+			"confirm_message": "string"
 		},
 		"returns": {
-			"test": "string"
+			"status_confirm": "string"
+		}
+	},
+
+  {
+		"name": "getUrls",
+		"params": {
+			"callingNode": "string"
+		},
+		"returns": {
+			"url1": "string",
+      "url2": "string",
+      "url3": "string",
+      "url4": "string"
 		}
 	}
 ]
